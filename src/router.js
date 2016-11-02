@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Carousel from './components/Carousel'
-import Tree from './components/Tree'
+import Carousel from './components/carousel/Carousel'
+import Tree from './components/tree/Tree'
 
 Vue.use(VueRouter)
 
