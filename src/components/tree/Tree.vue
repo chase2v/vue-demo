@@ -25,9 +25,13 @@
  *   childNodes
  * }
  */
-export default {
-  name: 'tree'
+import dataHandler from './dataHandler'
 
+export default {
+  name: 'tree',
+  beforeMount () {
+    console.log(dataHandler())
+  }
 }
 </script>
 
