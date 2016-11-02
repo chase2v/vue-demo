@@ -96,7 +96,9 @@ export default function dataHandler (data) {
           value: v,
           valueType: 'text',
           parentNode: parentNode[level - 1] ? parentNode[level - 1] : undefined,
-          childNodes: []
+          childNodes: [],
+          visible: true,
+          childrenVisible: true
         }
         rt.push(obj)
         parentNode[level - 1] && parentNode[level - 1].childNodes.push(obj) // push 到父节点的子节点属性中
@@ -105,8 +107,8 @@ export default function dataHandler (data) {
         }
         id++
       } else if (v instanceof Array) {
-        let children = _loop(v, level + 1)
-        children.forEach(v => {
+        let childNodes = _loop(v, level + 1)
+        childNodes.forEach(v => {
           rt.push(v)
         })
       } else {
@@ -117,7 +119,9 @@ export default function dataHandler (data) {
           // value,
           // valueType,
           parentNode: parentNode[level - 1] ? parentNode[level - 1] : undefined,
-          childNodes: []
+          childNodes: [],
+          visible: true,
+          childrenVisible: true
         }, v)
         rt.push(obj)
         parentNode[level - 1] && parentNode[level - 1].childNodes.push(obj)
