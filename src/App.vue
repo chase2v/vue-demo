@@ -1,17 +1,14 @@
 <template>
   <div id="app">
-    <Carousel></Carousel>
+    <router-link to="/carousel">Carousel</router-link>
+    <router-link to="/tree">Tree</router-link>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Carousel from './components/Carousel'
-
 export default {
-  name: 'app',
-  components: {
-    Carousel
-  }
+  name: 'app'
 }
 </script>
 
