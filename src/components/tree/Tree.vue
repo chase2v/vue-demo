@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="background">
-    Tree
+
   </div>
 </template>
 
@@ -26,10 +26,14 @@
  * }
  */
 import dataHandler from './dataHandler'
+import TreeNode from './TreeNode'
 
 export default {
   name: 'tree',
-  beforeMount () {
+  components: {
+    TreeNode
+  },
+  beforeCreate () {
     console.log(dataHandler())
   }
 }

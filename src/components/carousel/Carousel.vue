@@ -3,9 +3,9 @@
     img.carousel-img(:src="'static/images/' + imgSrcEnter + '.png'", :class="[enterClass, enterActiveClass]" ref="enterImg")
     img.carousel-img(:src="'static/images/' + imgSrcLeave + '.png'", :class="[leaveClass, leaveActiveClass]" ref="leaveImg")
     .button.button-left(@click="clickLeft")
-      i.iconfont.icon-chevronleft
+      i.fa.fa-chevron-left
     .button.button-right(@click="clickRight")
-      i.iconfont.icon-chevronright
+      i.fa.fa-chevron-right
 </template>
 
 <script>

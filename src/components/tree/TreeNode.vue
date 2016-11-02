@@ -1,10 +1,16 @@
-<template lang="html">
-  <div class="">
-  </div>
+<template lang="pug">
+  .node
+    i(class=iconClass)
+    a= value
 </template>
 
 <script>
 export default {
+  name: 'treeNode',
+  props: []
+  data () {
+    iconClass:
+  }
 }
 </script>
 
