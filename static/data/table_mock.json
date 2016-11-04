@@ -1,0 +1,34 @@
+{
+  "data" : {
+    "fields" : [
+      {
+        "name" : "序号",
+        "valueType" : "number",
+        "align" : "true"
+      },
+      {
+        "name" : "食品名称",
+        "valueType" : "string"
+      },
+      {
+        "name" : "食品类型",
+        "valueType" : "string"
+      },
+      {
+        "name" : "食品价格",
+        "valueType" : "number"
+      },
+      {
+        "name" : "食品生产地",
+        "valueType" : "string"
+      }
+    ],
+    "rows" : [
+      [1,"可乐","饮料",2.5,"美国"],
+      [2,"可乐","饮料",2.5,"美国"],
+      [3,"可乐","饮料",2.5,"美国"],
+      [4,"可乐","饮料",2.5,"美国"],
+      [5,"可乐","饮料",2.5,"美国"]
+    ]
+  }
+}
