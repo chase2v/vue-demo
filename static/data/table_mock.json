@@ -4,23 +4,28 @@
       {
         "name" : "序号",
         "valueType" : "number",
-        "align" : "true"
+        "align" : "true",
+        "width" : "50px"
       },
       {
         "name" : "食品名称",
-        "valueType" : "string"
+        "valueType" : "string",
+        "width" : 0
       },
       {
         "name" : "食品类型",
-        "valueType" : "string"
+        "valueType" : "string",
+        "width" : 0
       },
       {
         "name" : "食品价格",
-        "valueType" : "number"
+        "valueType" : "number",
+        "width" : "100px"
       },
       {
         "name" : "食品生产地",
-        "valueType" : "string"
+        "valueType" : "string",
+        "width" : 0
       }
     ],
     "rows" : [
