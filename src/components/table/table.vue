@@ -1,5 +1,5 @@
 <template lang="html">
-  <table class="table" :class="tableStyle">
+  <table class="table" :class="tableStyle" @mousedown="rightClick">
     <tbody>
       <tr>
         <th @dragover.prevent="" v-for="(field, idx) in tdata.fields" :align="field.align" @click="reverse" :style="{flexBasis: field.width, flexGrow: field.width ? 0 : 1}">{{ field.name }} <i v-if="field.align" class="fa" :class="iconTitle"></i><span class="editable-border" draggable="true" @drag="drag" @dragstart="dragstart" @dragend="dragend" :data-idx="idx"></span></th>
@@ -8,6 +8,7 @@
         <td v-for="(rowData, idx) in row" :style="{flexBasis: tdata.fields[idx].width, flexGrow: tdata.fields[idx].width ? 0 : 1}">{{ rowData }}</td>
       </tr>
     </tbody>
+    <div class="right-menu">右键菜单</div>
   </table>
 </template>
 
@@ -36,6 +37,14 @@ export default {
         this.tdata.rows.reverse()
       }
     },
+    rightClick ($event) {
+      $event.preventDefault()
+      $event.stopPropagation()
+      if ($event.button === 2) {
+        $event.currentTarget.querySelector('.right-menu').style.left = $event.pageX + 'px'
+        $event.currentTarget.querySelector('.right-menu').style.top = $event.pageY + 'px'
+      }
+    },
     dragstart ($event) {
       if (!this.drag.flag) {
         this.drag.flag = true
@@ -58,6 +67,10 @@ export default {
     http.$get('static/data/table_mock.json').then(res => {
       this.tdata = JSON.parse(res).data
     })
+
+    document.oncontextmenu = (event) => {
+      event.preventDefault()
+    }
   }
 }
 </script>
@@ -77,11 +90,18 @@ export default {
     display: inline-block;
     width: 5px;
     height: 100%;
-    // background-color: #000;
 
     &:hover {
       cursor:col-resize;
     }
+  }
+
+  .right-menu {
+    position: fixed;
+    width: 180px;
+    height: 200px;
+    border: 1px solid #aaa;
+    background-color: #fff;
   }
 }
 
