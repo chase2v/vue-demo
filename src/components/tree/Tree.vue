@@ -1,6 +1,7 @@
 <template lang="pug">
   .background
-    node(
+    component(
+      is="node"
       v-for="node in nodes"
       ":key"="node.id"
       ":id"="node.id"
@@ -80,5 +81,5 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
 </style>

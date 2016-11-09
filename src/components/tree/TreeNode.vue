@@ -1,7 +1,8 @@
 <template lang="pug">
-  .node(:style="{textIndent: level * 10 + 'px', display: visible ? 'block' : 'none'}", :id="id")
-    i.fa(:class="iconClass", @click="emitToggle")
-    span(v-text="value")
+  transition(name="slide-fade")
+    .node(:style="{textIndent: level * 10 + 'px'}", v-show="visible", :id="id")
+      i.fa(:class="iconClass", @click="emitToggle")
+      span(v-text="value")
 </template>
 
 <script>
@@ -28,5 +29,15 @@ export default {
   span {
     padding-left: 5px;
   }
+}
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-active {
+  padding-left: 10px;
+  opacity: 0;
 }
 </style>

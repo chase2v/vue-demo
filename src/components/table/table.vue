@@ -1,5 +1,5 @@
 <template lang="html">
-  <table class="table" :class="tableStyle" @mousedown="rightClick">
+  <table class="table" :class="tableStyle" @mouseup="rightClick">
     <tbody>
       <tr>
         <th @dragover.prevent="" v-for="(field, idx) in tdata.fields" :align="field.align" @click="reverse" :style="{flexBasis: field.width, flexGrow: field.width ? 0 : 1}">{{ field.name }} <i v-if="field.align" class="fa" :class="iconTitle"></i><span class="editable-border" draggable="true" @drag="drag" @dragstart="dragstart" @dragend="dragend" :data-idx="idx"></span></th>
@@ -41,8 +41,10 @@ export default {
       $event.preventDefault()
       $event.stopPropagation()
       if ($event.button === 2) {
-        $event.currentTarget.querySelector('.right-menu').style.left = $event.pageX + 'px'
-        $event.currentTarget.querySelector('.right-menu').style.top = $event.pageY + 'px'
+        let rm = $event.currentTarget.querySelector('.right-menu')
+        rm.style.display = 'block'
+        rm.style.left = $event.pageX + 'px'
+        rm.style.top = $event.pageY + 'px'
       }
     },
     dragstart ($event) {
@@ -97,6 +99,7 @@ export default {
   }
 
   .right-menu {
+    display: none;
     position: fixed;
     width: 180px;
     height: 200px;
