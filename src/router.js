@@ -6,16 +6,26 @@ import MenuBar from './components/menubar/MenuBar'
 import Table from './components/table/Table'
 import Datepicker from './components/datepicker/Datepicker'
 import Timepicker from './components/timepicker/Timepicker'
+import Tabbar from './components/tabbar/Tabbar'
+import Editor from './components/editor/'
 
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/carousel', component: Carousel },
-  { path: '/tree', component: Tree },
+  { path: '/carousel', components: { tabbar: Tabbar, main: Carousel } },
+  { path: '/tree', components: { tabbar: Tabbar, main: Tree } },
   { path: '/menubar', component: MenuBar },
   { path: '/table', component: Table },
   { path: '/datepicker', component: Datepicker },
-  { path: '/timerpicker', component: Timepicker }
+  { path: '/editor', component: Editor },
+  { path: '/timerpicker', component: Timepicker },
+  {
+    path: '/tabbar',
+    components: {
+      tabbar: Tabbar,
+      main: Table
+    }
+  }
 ]
 
 const router = new VueRouter({
