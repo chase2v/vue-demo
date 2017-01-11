@@ -1,5 +1,5 @@
 <template lang="html">
-<div class="font-size">
+<div class="c-align">
   <Dropdown :config="config" @selected="emitExec($event)" />
 </div>
 </template>
@@ -8,33 +8,29 @@
 import Dropdown from '../common/dropdown.vue'
 
 export default {
-  props: {
-    sizes: {
-      type: Array,
-      required: true
-    }
-  },
   data () {
     return {
       config: {
-        list: this.sizes,
+        list: [
+          {label: '左', name: 'justifyLeft'},
+          {label: '中', name: 'justifyCenter'},
+          {label: '右', name: 'justifyRight'}
+        ],
         defaultValue: 0
       }
     }
   },
+
   methods: {
     emitExec (selectedItem) {
       this.$emit('exec', {
-        name: 'fontSize',
-        arg: selectedItem
+        name: selectedItem
       })
     }
   },
+
   components: {
     Dropdown
-  },
-  mounted () {
-    this.emitExec(this.sizes[0].name)
   }
 }
 </script>

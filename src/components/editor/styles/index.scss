@@ -3,18 +3,6 @@
   margin: 0;
   border: none;
   outline: none;
-  list-style: none;
-  font-family: Microsoft Yahei;
-}
-
-.c-popover {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-
-  background-color: #fff;
 }
 
 @import "./variables";
@@ -26,3 +14,33 @@
 @import "./components/font-family";
 @import "./components/font-size";
 @import "./components/color";
+@import "./components/bold";
+@import "./components/italic";
+@import "./components/underline";
+@import "./components/del";
+@import "./components/unordered";
+@import "./components/ordered";
+@import "./components/align";
+@import "./components/horline";
+@import "./components/table";
+
+.c-popover {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  background-color: transparent;
+}
+
+.cut-line {
+  margin: 0 6px;
+
+  color: $border-color-deeper;
+}
+
+hr {
+  height: 1px;
+  background-color: $border-color-deeper;
+}

@@ -13,6 +13,11 @@
 
   transition: all .2s ease-in-out;
 
+  &.c-button-active {
+    border: 1px solid $border-color-hover;
+    background-color: $bg-color-hover;
+  }
+
   &:hover {
     border: 1px solid $border-color-hover;
     background-color: $bg-color-hover;

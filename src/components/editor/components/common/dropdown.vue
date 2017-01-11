@@ -1,12 +1,12 @@
 <template lang="html">
   <div class="dropdown">
-    <input type="text" v-model="currentItem" />
+    <input class="dropdown-window" type="text" v-model="currentItem" :disabled="config.type === 'icon'"/>
     <span class="button">
       <i @click.stop="onClickButton()" :class="isShowPanel ? 'fa-angle-up' : 'fa-angle-down'" class="fa"></i>
     </span>
     <transition name="slide">
       <ul class="panel" v-show="isShowPanel">
-        <li v-for="item in list" @click.stop="onClickItem(item)">{{ item }}</li>
+        <li v-for="item in config.list" @click.stop="onClickItem(item)">{{ item.label }}</li>
       </ul>
     </transition>
   </div>
@@ -15,19 +15,16 @@
 <script>
 export default {
   props: {
-    list: {
-      type: Array,
+    config: {
+      type: Object,
       required: true
-    },
-    defaultValue: {
-      default: ''
     }
   },
 
   data () {
     return {
       isShowPanel: false,
-      currentItem: this.defaultValue
+      currentItem: this.config.list[this.config.defaultValue].label
     }
   },
 
@@ -36,9 +33,9 @@ export default {
       this.isShowPanel = !this.isShowPanel
     },
     onClickItem (item) {
-      this.currentItem = item
+      this.currentItem = item.label
       this.isShowPanel = false
-      this.$emit('selected', item)
+      this.$emit('selected', item.name)
     }
   }
 }

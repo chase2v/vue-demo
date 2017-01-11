@@ -1,6 +1,6 @@
 <template lang="html">
 <div class="font-family">
-  <Dropdown :list="fonts" :defaultValue="fonts[0]" />
+  <Dropdown :config="config" @selected="emitExec($event)"/>
 </div>
 </template>
 
@@ -14,8 +14,27 @@ export default {
       required: true
     }
   },
+  data () {
+    return {
+      config: {
+        list: this.fonts,
+        defaultValue: 0
+      }
+    }
+  },
+  methods: {
+    emitExec (selectedItem) {
+      this.$emit('exec', {
+        name: 'fontName',
+        arg: selectedItem
+      })
+    }
+  },
   components: {
     Dropdown
+  },
+  mounted () {
+    this.emitExec(this.fonts[0].name)
   }
 }
 </script>

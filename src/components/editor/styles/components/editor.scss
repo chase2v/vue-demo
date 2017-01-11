@@ -21,9 +21,13 @@
   }
 
   .edit-zone {
+    box-sizing: border-box;
     width: 100%;
     height: calc(100% - 40px);
+    line-height: 20px;
+    padding: 6px;
 
+    font-size: 16px;
     text-align: left;
   }
 }

@@ -5,7 +5,7 @@
     </c-button>
     <div class="panel" v-show="isShowPanel">
       <c-row v-for="arr in colors">
-        <span class="color-block" v-for="color in arr" :style="{'background-color': color}"></span>
+        <span class="color-block" v-for="color in arr" :style="{'background-color': color}" @click.stop="emitExec(color)"></span>
       </c-row>
     </div>
   </div>
@@ -32,6 +32,16 @@ export default {
       }
     }
   },
+
+  methods: {
+    emitExec (color) {
+      this.$emit('exec', {
+        name: 'foreColor',
+        arg: color
+      })
+    }
+  },
+
   components: {
     'c-button': Button,
     'c-row': Row

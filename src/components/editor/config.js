@@ -3,14 +3,22 @@ export default {
     'font-family': {
       show: true,
       fonts: [
-        '微软雅黑',
-        '宋体',
-        'Arial'
+        { label: '微软雅黑', name: 'Microsoft Yahei' },
+        { label: '宋体', name: 'SimSun' },
+        { label: 'Arial', name: 'Arial' }
       ]
     },
     'font-size': {
       show: true,
-      sizes: [8, 9, 10, 11, 12, 14, 16, 18, 24, 36, 48]
+      sizes: [
+        { label: '1', name: '1' },
+        { label: '2', name: '2' },
+        { label: '3', name: '3' },
+        { label: '4', name: '4' },
+        { label: '5', name: '5' },
+        { label: '6', name: '6' },
+        { label: '7', name: '7' }
+      ]
     },
     color: {
       show: true,
@@ -21,6 +29,33 @@ export default {
         ['rgb(70, 70, 70)', 'rgb(26, 144, 185)', 'rgb(45, 79, 201)', 'rgb(79, 0, 154)', 'rgb(134, 0, 164)', 'rgb(156, 0, 76)', 'rgb(227, 0, 0)', 'rgb(222, 87, 0)', 'rgb(198, 197, 0)', 'rgb(65, 173, 28)'],
         ['rgb(0, 0, 0)', 'rgb(20, 113, 145)', 'rgb(28, 51, 135)', 'rgb(65, 0, 125)', 'rgb(106, 0, 129)', 'rgb(123, 0, 61)', 'rgb(173, 0, 0)', 'rgb(167, 69, 0)', 'rgb(147, 150, 0)', 'rgb(50, 135, 18)']
       ]
+    },
+    bold: {
+      show: true
+    },
+    italic: {
+      show: true
+    },
+    underline: {
+      show: true
+    },
+    del: {
+      show: true
+    },
+    unordered: {
+      show: true
+    },
+    ordered: {
+      show: true
+    },
+    align: {
+      show: true
+    },
+    horline: {
+      show: true
+    },
+    table: {
+      show: true
     }
   }
 }
