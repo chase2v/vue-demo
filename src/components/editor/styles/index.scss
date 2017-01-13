@@ -9,6 +9,7 @@
 @import "./font/font-awesome";
 @import "./components/row";
 @import "./components/dropdown";
+@import "./components/panel";
 @import "./components/button";
 @import "./components/editor";
 @import "./components/font-family";
@@ -22,7 +23,7 @@
 @import "./components/ordered";
 @import "./components/align";
 @import "./components/horline";
-@import "./components/table";
+@import "./components/table-button";
 
 .c-popover {
   position: fixed;

@@ -12,7 +12,7 @@ import Unordered from './components/unordered/unordered'
 import Ordered from './components/ordered/ordered'
 import Align from './components/align/align'
 import Horline from './components/horline/horline'
-import Table from './components/table/table'
+import Table from './components/table-button/table-button'
 
 export default {
   render (h) {
