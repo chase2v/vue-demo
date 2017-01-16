@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 import Editor from './components/editor'
 import config from './config'
 import './styles/index.scss'
@@ -13,6 +15,10 @@ import Ordered from './components/ordered/ordered'
 import Align from './components/align/align'
 import Horline from './components/horline/horline'
 import Table from './components/table-button/table-button'
+
+import Panel from './components/common/panel'
+
+Vue.component('c-panel', Panel)
 
 export default {
   render (h) {

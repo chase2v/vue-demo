@@ -22,7 +22,7 @@
 
 <script>
 import Button from '../common/button'
-import Panel from '../common/panel'
+// import Panel from '../common/panel'
 // import Table from '../common/table'
 
 export default {
@@ -133,8 +133,8 @@ export default {
   },
 
   components: {
-    'c-button': Button,
-    'c-panel': Panel
+    'c-button': Button
+    // 'c-panel': Panel
   }
 }
 </script>

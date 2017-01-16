@@ -6,6 +6,7 @@
 
 <script>
 import Post from './post'
+import Vue from 'vue'
 
 export default {
   computed: {
