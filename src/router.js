@@ -8,6 +8,7 @@ import Datepicker from './components/datepicker/Datepicker'
 import Timepicker from './components/timepicker/Timepicker'
 import Tabbar from './components/tabbar/Tabbar'
 import Editor from './components/editor/'
+import Uploader from './components/uploader/uploader'
 
 Vue.use(VueRouter)
 
@@ -18,6 +19,7 @@ const routes = [
   { path: '/table', component: Table },
   { path: '/datepicker', component: Datepicker },
   { path: '/editor', component: Editor },
+  { path: '/uploader', component: Uploader },
   { path: '/timerpicker', component: Timepicker },
   {
     path: '/tabbar',

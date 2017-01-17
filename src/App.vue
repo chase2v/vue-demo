@@ -8,6 +8,7 @@
     <router-link to="/timepicker">Timepicker</router-link>
     <router-link to="/tabbar">Tabbar</router-link>
     <router-link to="/editor">Editor</router-link>
+    <router-link to="/uploader">Uploader</router-link>
     <router-view class="view side"></router-view>
     <router-view @delete="deleteTab($event)" class="view tabbar" name="tabbar" :tabs="tabs"></router-view>
     <router-view class="view main" name="main"></router-view>

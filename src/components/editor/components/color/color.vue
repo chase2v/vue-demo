@@ -9,8 +9,8 @@
       </c-row>
       <c-button :config="configButtonPalette">调色板</c-button>
     </div>
-    <c-palette />
     <c-panel :config="configPanelPalette">
+      <c-palette />
     </c-panel>
   </div>
 </template>

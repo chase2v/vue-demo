@@ -1,16 +1,22 @@
 <template lang="html">
   <div class="c-palette">
     <canvas
-      ref="cvsOpacity"
-      style="width: 20px; height: 200px; cursor: crosshair;"
-      @click.stop="pickColor">
+      ref="cvsMap"
+      style="width: 200px; height: 200px; cursor: crosshair;">
     </canvas>
-    {{test}}
-    <canvas
-      ref="cvs"
-      style="width: 20px; height: 200px; cursor: crosshair;"
-      @click.stop="pickColor">
-    </canvas>
+    <div class="cvs-gray">
+      <canvas ref="cvsOpacity"></canvas>
+    </div>
+    <div class="cvs-primary" @dragover.prevent="">
+      <div
+        class="c-palette-slider"
+        draggable="true"
+        @dragstart.stop="onDragstartPaletteSlider"
+        @drag.stop="onDragPaletteSlider"
+        @dragend.stop="onDragendPaletteSlider">
+      </div>
+      <canvas ref="cvs"></canvas>
+    </div>
   </div>
 </template>
 
@@ -18,57 +24,152 @@
 export default {
   data () {
     return {
-      test: 'This is palette.'
     }
   },
   methods: {
-    pickColor (e) {
-      let x = e.offsetX
-      let y = e.offsetY
-      let imageData = this.ctx.getImageData(x * 50 / 20, y * 256 * 6 / 200, 1, 1)
-      this.createImageDataOpacity({
-        r: imageData.data[0],
-        g: imageData.data[1],
-        b: imageData.data[2],
-        a: imageData.data[3]
-      })
+    onDragstartPaletteSlider (e) {
+      if (!e.currentTarget.dataset.y) {
+        e.currentTarget.dataset.y = e.y
+      }
+      // else {}
     },
-    createImageDataOpacity (color) {
-      console.log(color)
-      let cvs = this.$refs.cvsOpacity
-      cvs.width = 20
-      cvs.height = 100
+    onDragPaletteSlider (e) {
+      let dis = e.y - e.currentTarget.dataset.y
+      e.currentTarget.style.transform = 'translateY(' + dis + 'px)'
+    },
+    onDragendPaletteSlider (e) {
+      let dis = e.y - e.currentTarget.dataset.y
+      e.currentTarget.style.transform = 'translateY(' + dis + 'px)'
+
+      let cvsLeft = this.$refs.cvs.getBoundingClientRect().left
+      let x = e.clientX - cvsLeft
+      let y = dis
+      console.log(x, y)
+      this.pickColor(x, y)
+    },
+    pickColor (x, y) {
+      let imageData = this.ctx.getImageData(x * 50 / 20, y * 256 * 6 / 200, 1, 1)
+      this.createImage([
+        {
+          r: imageData.data[0],
+          g: imageData.data[1],
+          b: imageData.data[2],
+          a: imageData.data[3]
+        },
+        {
+          r: imageData.data[0],
+          g: imageData.data[1],
+          b: imageData.data[2],
+          a: imageData.data[3]
+        },
+        {
+          r: imageData.data[0],
+          g: imageData.data[1],
+          b: imageData.data[2],
+          a: 0
+        },
+        {
+          r: imageData.data[0],
+          g: imageData.data[1],
+          b: imageData.data[2],
+          a: 0
+        }
+      ], 20, 100, this.$refs.cvsOpacity)
+      this.createImage([
+        {
+          r: 255,
+          g: 255,
+          b: 255,
+          a: 255
+        },
+        {
+          r: imageData.data[0],
+          g: imageData.data[1],
+          b: imageData.data[2],
+          a: imageData.data[3]
+        },
+        {
+          r: 0,
+          g: 0,
+          b: 0,
+          a: 255
+        },
+        {
+          r: 0,
+          g: 0,
+          b: 0,
+          a: 255
+        }
+      ], 256, 256, this.$refs.cvsMap)
+    },
+    /**
+     * 创建 ImageData
+     *
+     * @param colorArray {Array} [leftTopColor, rightTopColor, rightBottomColor, leftBottomColor]
+     * @param width {Number} 图片宽度
+     * @param height {Number} 图片高度
+     * @param cvs {HTMLCanvasElement} canvas's domElm
+     */
+    createImage (colorArray, width, height, cvs) {
+      cvs.width = width
+      cvs.height = height
 
       let ctx = cvs.getContext('2d')
-      let imageData = ctx.createImageData(20, 100)
-      let arr = this.createImageDataArrayOpacity(color, 20)
-      for (let i = 0; i < 20 * 4 * 100; i++) {
+      let imageData = ctx.createImageData(width, height)
+      let arr = this.createImageDataArray(colorArray, width, height)
+
+      for (let i = 0; i < width * height * 4; i++) {
         imageData.data[i] = arr[i]
       }
       ctx.putImageData(imageData, 0, 0)
     },
     /**
-     * 创建透明度颜色选取条的 ImageData 数组
+     * 创建 ImageData 的 data 数组
      *
-     * color 对象：
-     *  {
-     *    r, g, b, a
-     *  }
+     * @param colorArray {Array} [leftTopColor, rightTopColor, rightBottomColor, leftBottomColor]
+     * @param width {Number} 图片宽度
+     * @param height {Number} 图片高度
      */
-    createImageDataArrayOpacity (color, width) {
+    createImageDataArray (colorArray, width, height) {
       let arr = []
-      for (let i = 100; i > 0; i--) {
+      let gapHead = { // 计算首列像素差距
+        r: colorArray[0].r - colorArray[3].r,
+        g: colorArray[0].g - colorArray[3].g,
+        b: colorArray[0].b - colorArray[3].b,
+        a: colorArray[0].a - colorArray[3].a
+      }
+      let gapTail = { // 计算尾列像素差距
+        r: colorArray[1].r - colorArray[2].r,
+        g: colorArray[1].g - colorArray[2].g,
+        b: colorArray[1].b - colorArray[2].b,
+        a: colorArray[1].a - colorArray[2].a
+      }
+      for (let i = 0; i < height; i++) {
+        let colorStart = { // 计算每行的起始像素
+          r: colorArray[0].r - Math.ceil((gapHead.r / (height - 1)) * i),
+          g: colorArray[0].g - Math.ceil((gapHead.g / (height - 1)) * i),
+          b: colorArray[0].b - Math.ceil((gapHead.b / (height - 1)) * i),
+          a: colorArray[0].a - Math.ceil((gapHead.a / (height - 1)) * i)
+        }
+        let colorEnd = { // 计算每行的结束像素
+          r: colorArray[1].r - Math.ceil((gapTail.r / (height - 1)) * i),
+          g: colorArray[1].g - Math.ceil((gapTail.g / (height - 1)) * i),
+          b: colorArray[1].b - Math.ceil((gapTail.b / (height - 1)) * i),
+          a: colorArray[1].a - Math.ceil((gapTail.a / (height - 1)) * i)
+        }
         for (let j = 0; j < width; j++) {
-          arr.push(color.r)
-          arr.push(color.g)
-          arr.push(color.b)
-          if (i === 0) {
-            arr.push(i)
-          } else {
-            arr.push(parseInt(i, 16) - 1)
+          let color = { // 计算每一像素点
+            r: colorStart.r - Math.ceil(((colorStart.r - colorEnd.r) / (width - 1)) * j),
+            g: colorStart.g - Math.ceil(((colorStart.g - colorEnd.g) / (width - 1)) * j),
+            b: colorStart.b - Math.ceil(((colorStart.b - colorEnd.b) / (width - 1)) * j),
+            a: colorStart.a - Math.ceil(((colorStart.a - colorEnd.a) / (width - 1)) * j)
+          }
+          for (let k in color) {
+            arr.push(color[k])
           }
         }
       }
+
       return arr
     }
   },
