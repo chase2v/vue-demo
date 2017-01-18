@@ -5,24 +5,31 @@
       <div class="c-uploader-resize">
 
       </div>
-      <div class="c-uploader-cut" v-show="isCutting" ref="cut">
-        <span class="c-uploader-cut-dot" @mousedown.stop="onMousedownCutDot"></span>
-        <span class="c-uploader-cut-dot" @mousedown.stop="onMousedownCutDot"></span>
-        <span class="c-uploader-cut-dot" @mousedown.stop="onMousedownCutDot"></span>
-        <span class="c-uploader-cut-dot" @mousedown.stop="onMousedownCutDot"></span>
-        <span class="c-uploader-cut-dot" @mousedown.stop="onMousedownCutDot"></span>
-        <span class="c-uploader-cut-dot" @mousedown.stop="onMousedownCutDot"></span>
-        <span class="c-uploader-cut-dot" @mousedown.stop="onMousedownCutDot"></span>
-        <span class="c-uploader-cut-dot" @mousedown.stop="onMousedownCutDot"></span>
+      <div
+        class="c-uploader-cut"
+        v-show="isCutting"
+        ref="cut"
+        @mousedown.stop="onMousedownCutDot">
+        <span class="c-uploader-cut-dot"></span>
+        <span class="c-uploader-cut-dot"></span>
+        <span class="c-uploader-cut-dot"></span>
+        <span class="c-uploader-cut-dot"></span>
+        <span class="c-uploader-cut-dot"></span>
+        <span class="c-uploader-cut-dot"></span>
+        <span class="c-uploader-cut-dot"></span>
+        <span class="c-uploader-cut-dot"></span>
       </div>
     </div>
     <div class="c-uploader-main">
+      <c-panel ref="cPanel" :sign="panelSign">This a Panel</c-panel>
       <input type="file" @change="onChangeInput" />
     </div>
   </div>
 </template>
 
 <script>
+import Panel from '../panel/panel'
+
 export default {
   props: {
     config: {
@@ -34,7 +41,8 @@ export default {
       imgSrc: null,
       isCutting: false,
       isMousedown: 0,
-      curDot: null
+      curDot: null,
+      panelSign: false
     }
   },
   methods: {
@@ -43,7 +51,7 @@ export default {
     },
     onMousedownCutDot (e) {
       this.isMousedown = 1
-      this.curDot = e.currentTarget
+      this.curDot = e.target
     },
     onMousemovePreview (e) {
       if (e.target.tagName !== 'SPAN') {
@@ -86,6 +94,12 @@ export default {
       img.src = imgSrc
       this.imgSrc = imgSrc
     }
+  },
+  components: {
+    'c-panel': Panel
+  },
+  mounted () {
+    debugger
   }
 }
 </script>
