@@ -9,8 +9,8 @@ import PanelManager from './panelManager'
 
 export default {
   props: {
-    sign: {
-      type: Boolean,
+    config: {
+      type: Object,
       required: true
     }
   },
@@ -24,7 +24,7 @@ export default {
   },
 
   watch: {
-    'sign' (newV) {
+    'config.sign' (newV) {
       if (newV) {
         if (!this.init) {
           this.init = true
@@ -46,6 +46,8 @@ export default {
 
 <style lang="scss" scoped>
 .c-panel {
+  position: absolute;
+
   opacity: 1;
   background-color: transparent;
   border: none;

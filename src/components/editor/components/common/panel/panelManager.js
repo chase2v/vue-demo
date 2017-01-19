@@ -22,6 +22,7 @@ const open = function () {
       _instances[key].signLeaf = true
     } else {
       _instances[key].signLeaf = false
+      _instances[key].$options.propsData.config.sign = false
     }
   }
 }
@@ -36,6 +37,7 @@ const close = function () {
 const closeAll = function () {
   for (let key in _instances) {
     _instances[key].signLeaf = false
+    _instances[key].$options.propsData.config.sign = false
   }
 }
 
@@ -48,7 +50,8 @@ const PanelManager = {
   open,
   close,
   destroy,
-  init
+  init,
+  closeAll
 }
 
 export default PanelManager

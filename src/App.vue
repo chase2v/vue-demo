@@ -11,6 +11,7 @@
     <router-link to="/uploader">Uploader</router-link>
     <router-link to="/pallete">Pallete</router-link>
     <router-link to="/panel">Panel</router-link>
+    <router-link to="/imgEditor">ImgEditor</router-link>
     <router-view class="view side"></router-view>
     <router-view @delete="deleteTab($event)" class="view tabbar" name="tabbar" :tabs="tabs"></router-view>
     <router-view class="view main" name="main"></router-view>

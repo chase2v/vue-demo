@@ -11,6 +11,7 @@ import Editor from './components/editor/'
 import Uploader from './components/uploader/uploader'
 import Pallete from './components/pallete/pallete'
 import Panel from './components/panel/panel'
+import ImgEditor from './components/imgEditor/imgEditor'
 
 Vue.use(VueRouter)
 
@@ -25,6 +26,7 @@ const routes = [
   { path: '/timerpicker', component: Timepicker },
   { path: '/pallete', component: Pallete },
   { path: '/panel', component: Panel },
+  { path: '/imgEditor', component: ImgEditor },
   {
     path: '/tabbar',
     components: {
