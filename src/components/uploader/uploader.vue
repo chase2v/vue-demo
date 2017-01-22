@@ -12,11 +12,11 @@
       <span v-show="isShowClip">裁剪</span>
     </div>
     <div class="c-uploader-selector">
-      <div class="c-uploader-thumbnail" v-for="image in images">
-        <img :src="image"/>
-        <span>-</span>
+      <div class="c-uploader-thumbnail" v-for="(image, idx) in images">
+        <img :src="image" :data-idx="idx" @click.stop="onClickImg"/>
+        <span @click.stop="deleteImg" :data-idx="idx">-</span>
       </div>
-      <span class="c-uploader-input" v-if="images.length !== 3">+</span>
+      <span class="c-uploader-input" v-if="images.length !== 3" @click.stop="upload">+</span>
     </div>
     <input
       ref="input"
@@ -32,9 +32,14 @@
 export default {
   data () {
     return {
-      currentImage: null,
       images: [],
       isShowClip: false
+    }
+  },
+
+  computed: {
+    currentImage () {
+      return this.images[0]
     }
   },
 
@@ -45,15 +50,34 @@ export default {
     onMouseleaveCurimg (e) {
       this.isShowClip = false
     },
+    onClickImg (e) {
+      this.currentImage = this.images[e.currentTarget.dataset.idx]
+    },
+    deleteImg (e) {
+      this.images.splice(e.currentTarget.dataset.idx, 1)
+    },
     onChangeInput (e) {
-      for (let i = 0; i < e.currentTarget.files.length; i++) {
-        if (i >= 3) {
-          break
+      let imgLen = this.images.length
+
+      if (!imgLen) {
+        for (let i = 0; i < e.currentTarget.files.length; i++) {
+          if (i >= 3) { // 暂时限制为3张图片
+            break
+          } else {
+            let img = window.URL.createObjectURL(e.currentTarget.files[i])
+            this.images.push(img)
+          }
         }
-        let img = window.URL.createObjectURL(e.currentTarget.files[i])
-        this.images.push(img)
+      } else {
+        for (let i = 0; i < e.currentTarget.files.length; i++) {
+          if (i >= 3 - imgLen) {
+            break
+          } else {
+            let img = window.URL.createObjectURL(e.currentTarget.files[i])
+            this.images.push(img)
+          }
+        }
       }
-      this.currentImage = this.images[0]
     },
     upload () {
       this.$refs.input.click()
@@ -127,6 +151,10 @@ export default {
       float: left;
       margin-right: 10px;
 
+      &:last-child {
+        margin-right: 0;
+      }
+
       span {
         position: absolute;
         right: -6px;
@@ -151,9 +179,7 @@ export default {
 
       border-radius: 5px;
 
-      &:last-child {
-        margin-right: 0;
-      }
+      cursor: pointer;
     }
   }
 
